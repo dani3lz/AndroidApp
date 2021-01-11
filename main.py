@@ -1,9 +1,4 @@
 from kivy.app import App
-from kivy.config import Config
-
-Config.set("graphics", "resizable", 0)
-Config.set("graphics", "width", 500)
-Config.set("graphics", "height", 800)
 
 from kivy.uix.image import Image
 from kivy.clock import Clock
@@ -20,10 +15,6 @@ class Background(Widget):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.stars_texture = Image(source="img/background/stars.png").texture
-        self.stars_texture.wrap = "repeat"
-        self.stars_texture.uvsize = (Window.width/ self.stars_texture.width, -1)
-
         self.city_texture = Image(source="img/background/city.png").texture
         self.city_texture.wrap = "repeat"
         self.city_texture.uvsize = (Window.width / self.city_texture.width, -1)
@@ -33,12 +24,8 @@ class Background(Widget):
         self.floor_texture.uvsize = (Window.width / self.floor_texture.width, -1)
 
     def scroll_texture(self, time_passed):
-        self.stars_texture.uvpos = ((self.stars_texture.uvpos[0] + time_passed/1.5) % Window.width, self.stars_texture.uvpos[1])
         self.floor_texture.uvpos = ((self.floor_texture.uvpos[0] + time_passed/2.1) % Window.width, self.floor_texture.uvpos[1])
         self.city_texture.uvpos = ((self.city_texture.uvpos[0] + time_passed/1.3) % Window.width, self.city_texture.uvpos[1])
-        
-        texture = self.property("stars_texture")
-        texture.dispatch(self)
 
         texture = self.property("city_texture")
         texture.dispatch(self)

@@ -9,10 +9,6 @@ FloatLayout:
                 pos: self.pos
                 source: "img/background/background.jpg"
             Rectangle:
-                size: self.width, 150
-                pos: self.pos[0], self.pos[1] + self.height - 325
-                texture: self.stars_texture
-            Rectangle:
                 size: self.width, 86
                 pos: self.pos[0], self.pos[1] + 114
                 texture: self.city_texture
@@ -24,7 +20,7 @@ FloatLayout:
         font_name: "fonts/ScoreRegular.ttf"
         id: score
         size_hint_y: None
-        height: 1400
+        height: (root.height*2) - 200
         text: "0"
         font_size: 100
         color: 1,1,1,1
@@ -44,8 +40,8 @@ FloatLayout:
         id: high_score_text
         size_hint_y: None
         size_hint_x: None
-        width: 440
-        height: 660
+        width: root.width - 150
+        height: root.height - 150
         text: "Highscore "
         font_size: 50
         color: 1,1,1,1
@@ -54,8 +50,8 @@ FloatLayout:
         id: high_score
         size_hint_y: None
         size_hint_x: None
-        width: 660
-        height: 660
+        width: root.width + 150
+        height: root.height - 150
         text: app.check_score_init()
         font_size: 50
         color: 1,1,1,1
