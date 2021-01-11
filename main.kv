@@ -7,42 +7,64 @@ FloatLayout:
             Rectangle:
                 size: self.size
                 pos: self.pos
-                source: "background.jpg"
+                source: "img/background/background.jpg"
             Rectangle:
-                size: self.width, 89
-                pos: self.pos[0], self.pos[1] + self.height - 150
-                texture: self.cloud_texture
+                size: self.width, 150
+                pos: self.pos[0], self.pos[1] + self.height - 325
+                texture: self.stars_texture
             Rectangle:
                 size: self.width, 86
-                pos: self.pos[0], self.pos[1] + 35
+                pos: self.pos[0], self.pos[1] + 114
                 texture: self.city_texture
             Rectangle:
-                size: self.width, 38
+                size: self.width, 114
                 pos: self.pos[0], self.pos[1]
                 texture: self.floor_texture
     Label:
+        font_name: "fonts/ScoreRegular.ttf"
         id: score
         size_hint_y: None
         height: 1400
         text: "0"
-        font_size: 60
-
+        font_size: 100
+        color: 1,1,1,1
     Button:
+        font_name: "fonts/TextRegular.ttf"
         text: "Play"
         font_size: 100
-        background_normal: "null.png"
-        background_down: "null.png"
+        background_normal: "img/button/null.png"
+        background_down: "img/button/null.png"
         id: start_button
         on_release:
             self.disabled = True
             self.opacity = 0
             app.start_game()
-    Bison:
-        id: bison
-        source: "bison1.png"
+    Label:
+        font_name: "fonts/TextRegular.ttf"
+        id: high_score_text
+        size_hint_y: None
+        size_hint_x: None
+        width: 440
+        height: 660
+        text: "Highscore "
+        font_size: 50
+        color: 1,1,1,1
+    Label:
+        font_name: "fonts/ScoreRegular.ttf"
+        id: high_score
+        size_hint_y: None
+        size_hint_x: None
+        width: 660
+        height: 660
+        text: app.check_score_init()
+        font_size: 50
+        color: 1,1,1,1
+    Player:
+        id: player
+        source: "img/body/body_normal.png"
         size_hint: None, None
-        size: 57, 46
-        pos: 20, (root.height - 38) / 2.0
+        size: 36, 24
+        pos: 20, root.height / 2.0
 
 
 
