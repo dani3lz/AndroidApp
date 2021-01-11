@@ -40,7 +40,7 @@ class Player(Image):
     velocity = NumericProperty(0)
     def on_touch_down(self, touch):
         self.source = "img/body/new/body_fly.png"
-        self.velocity = 1125
+        self.velocity = 1000
         super().on_touch_down(touch)
 
     def on_touch_up(self, touch):
@@ -132,7 +132,7 @@ class MainApp(App):
     def move_pipes(self, time_passed):
         # Move pipes
         for pipe in self.pipes:
-            pipe.x -= time_passed * 100
+            pipe.x -= time_passed * 500
 
         # Check
         num_pipes = 3
