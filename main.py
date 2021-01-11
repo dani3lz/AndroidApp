@@ -1,5 +1,4 @@
 from kivy.app import App
-
 from kivy.uix.image import Image
 from kivy.clock import Clock
 from kivy.properties import ObjectProperty
@@ -15,11 +14,11 @@ class Background(Widget):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.city_texture = Image(source="img/background/city.png").texture
+        self.city_texture = Image(source="img/background/new/city.png").texture
         self.city_texture.wrap = "repeat"
         self.city_texture.uvsize = (Window.width / self.city_texture.width, -1)
 
-        self.floor_texture = Image(source="img/background/floor.png").texture
+        self.floor_texture = Image(source="img/background/new/floor.png").texture
         self.floor_texture.wrap = "repeat"
         self.floor_texture.uvsize = (Window.width / self.floor_texture.width, -1)
 
@@ -40,18 +39,18 @@ from kivy.properties import NumericProperty
 class Player(Image):
     velocity = NumericProperty(0)
     def on_touch_down(self, touch):
-        self.source = "img/body/body_fly.png"
-        self.velocity = 225
+        self.source = "img/body/new/body_fly.png"
+        self.velocity = 1125
         super().on_touch_down(touch)
 
     def on_touch_up(self, touch):
-        self.source = "img/body/body_normal.png"
+        self.source = "img/body/new/body_normal.png"
         super().on_touch_up(touch)
 
 
 class MainApp(App):
     pipes = []
-    GRAVITY = 500
+    GRAVITY = 2500
     was_colliding = False
 
     def check_score_init(self):
@@ -85,7 +84,7 @@ class MainApp(App):
                     self.game_over()
                 if player.top > (pipe.pipe_center+pipe.GAP_SIZE/2.0):
                     self.game_over()
-        if player.y < 114:
+        if player.y < 274:
             self.game_over()
         if player.top > Window.height:
             self.game_over()
@@ -96,7 +95,7 @@ class MainApp(App):
 
     def game_over(self):
         self.check_score()
-        self.root.ids.player.pos = 20, (self.root.height - 114) / 2.0
+        self.root.ids.player.pos = 100, (self.root.height - 274) / 2.0
         for pipe in self.pipes:
             self.root.remove_widget(pipe)
         self.frame.cancel()
@@ -118,14 +117,14 @@ class MainApp(App):
         self.pipes = []
         self.frame = Clock.schedule_interval(self.next_frame, 1/60.)
         # Create the pipes
-        num_pipes = 5
-        distance_between_pipes = Window.width / 2.0
+        num_pipes = 3
+        distance_between_pipes = Window.width / (num_pipes - 1) + 250
         for i in range(num_pipes):
             pipe = Pipe()
-            pipe.pipe_center = randint((114 + 120), (self.root.height - 120))
+            pipe.pipe_center = randint((274 + 200), (self.root.height - 200))
             pipe.size_hint = (None,None)
-            pipe.pos = (i*distance_between_pipes + self.root.width, 114)
-            pipe.size = (64, self.root.height - 114)
+            pipe.pos = (i*distance_between_pipes + self.root.width, 274)
+            pipe.size = (320, self.root.height - 274)
 
             self.pipes.append(pipe)
             self.root.add_widget(pipe, -1)
@@ -136,14 +135,14 @@ class MainApp(App):
             pipe.x -= time_passed * 100
 
         # Check
-        num_pipes = 5
-        distance_between_pipes = Window.width / 2.0
+        num_pipes = 3
+        distance_between_pipes = Window.width / (num_pipes - 1) + 250
         pipe_xs = list(map(lambda pipe: pipe.x, self.pipes))
         right_most_x = max(pipe_xs)
         if right_most_x <= Window.width - distance_between_pipes:
             most_left_pipe = self.pipes[pipe_xs.index(min(pipe_xs))]
             most_left_pipe.x = Window.width
-            most_left_pipe.pipe_center = randint((114 + 120), (self.root.height - 120))
+            most_left_pipe.pipe_center = randint((274 + 200), (self.root.height - 200))
 
 if __name__ == "__main__":
     MainApp().run()
