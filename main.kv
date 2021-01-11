@@ -1,0 +1,49 @@
+#:include pipe.kv
+
+FloatLayout:
+    Background:
+        id: background
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "background.jpg"
+            Rectangle:
+                size: self.width, 89
+                pos: self.pos[0], self.pos[1] + self.height - 150
+                texture: self.cloud_texture
+            Rectangle:
+                size: self.width, 86
+                pos: self.pos[0], self.pos[1] + 35
+                texture: self.city_texture
+            Rectangle:
+                size: self.width, 38
+                pos: self.pos[0], self.pos[1]
+                texture: self.floor_texture
+    Label:
+        id: score
+        size_hint_y: None
+        height: 1400
+        text: "0"
+        font_size: 60
+
+    Button:
+        text: "Play"
+        font_size: 100
+        background_normal: "null.png"
+        background_down: "null.png"
+        id: start_button
+        on_release:
+            self.disabled = True
+            self.opacity = 0
+            app.start_game()
+    Bison:
+        id: bison
+        source: "bison1.png"
+        size_hint: None, None
+        size: 57, 46
+        pos: 20, (root.height - 38) / 2.0
+
+
+
+
