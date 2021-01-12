@@ -23,7 +23,7 @@ class Background(Widget):
         self.floor_texture.uvsize = (Window.width / self.floor_texture.width, -1)
 
     def scroll_texture(self, time_passed):
-        self.floor_texture.uvpos = ((self.floor_texture.uvpos[0] + time_passed) % Window.width, self.floor_texture.uvpos[1])
+        self.floor_texture.uvpos = ((self.floor_texture.uvpos[0] + time_passed/2.5) % Window.width, self.floor_texture.uvpos[1])
         self.city_texture.uvpos = ((self.city_texture.uvpos[0] + time_passed) % Window.width, self.city_texture.uvpos[1])
 
         texture = self.property("city_texture")
@@ -97,7 +97,7 @@ class MainApp(App):
     def game_over(self):
         floor_id = self.root.ids.background.canvas.before.get_group('f')[0]
         self.check_score()
-        self.root.ids.player.pos = 100, (self.root.height - floor_id.size[1]) / 2.0
+        self.root.ids.player.pos = 100, (self.root.height + floor_id.size[1]) / 2.0
         for pipe in self.pipes:
             self.root.remove_widget(pipe)
         self.frame.cancel()
