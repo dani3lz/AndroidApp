@@ -13,6 +13,7 @@ FloatLayout:
                 pos: self.pos[0], self.pos[1] + 274
                 texture: self.city_texture
             Rectangle:
+                group: 'f'
                 size: self.width, 274
                 pos: self.pos[0], self.pos[1]
                 texture: self.floor_texture
@@ -59,7 +60,7 @@ FloatLayout:
         id: player
         source: "img/body/new/body_normal.png"
         size_hint: None, None
-        size: 180, 114
+        size: 120, 76
         pos: 100, root.height / 2.0
 
 

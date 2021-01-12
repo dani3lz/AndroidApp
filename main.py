@@ -40,7 +40,7 @@ class Player(Image):
     velocity = NumericProperty(0)
     def on_touch_down(self, touch):
         self.source = "img/body/new/body_fly.png"
-        self.velocity = 1000
+        self.velocity = 700
         super().on_touch_down(touch)
 
     def on_touch_up(self, touch):
@@ -50,7 +50,7 @@ class Player(Image):
 
 class MainApp(App):
     pipes = []
-    GRAVITY = 2500
+    GRAVITY = 2000
     was_colliding = False
 
     def check_score_init(self):
@@ -75,6 +75,7 @@ class MainApp(App):
         self.check_collision()
 
     def check_collision(self):
+        floor_id = self.root.ids.background.canvas.before.get_group('f')[0]
         player = self.root.ids.player
         is_colliding = False
         for pipe in self.pipes:
@@ -84,7 +85,7 @@ class MainApp(App):
                     self.game_over()
                 if player.top > (pipe.pipe_center+pipe.GAP_SIZE/2.0):
                     self.game_over()
-        if player.y < 274:
+        if player.y < floor_id.size[1]:
             self.game_over()
         if player.top > Window.height:
             self.game_over()
@@ -114,35 +115,38 @@ class MainApp(App):
         self.root.ids.high_score_text.opacity = 0
         self.root.ids.score.text = "0"
         self.was_colliding = False
+        floor_id = self.root.ids.background.canvas.before.get_group('f')[0]
         self.pipes = []
         self.frame = Clock.schedule_interval(self.next_frame, 1/60.)
         # Create the pipes
         num_pipes = 3
-        distance_between_pipes = Window.width / (num_pipes - 1) + 250
+        distance_between_pipes = Window.width / (num_pipes - 1) + 300
         for i in range(num_pipes):
             pipe = Pipe()
-            pipe.pipe_center = randint((274 + 200), (self.root.height - 200))
+            pipe.pipe_center = randint(floor_id.size[1] + (pipe.high_pipe * 2), self.root.height - (pipe.high_pipe * 2))
             pipe.size_hint = (None,None)
-            pipe.pos = (i*distance_between_pipes + self.root.width, 274)
-            pipe.size = (320, self.root.height - 274)
+            pipe.pos = (i*distance_between_pipes + self.root.width, floor_id.size[1])
+            pipe.size = (218, self.root.height - floor_id.size[1])
 
             self.pipes.append(pipe)
             self.root.add_widget(pipe, -1)
 
     def move_pipes(self, time_passed):
+        floor_id = self.root.ids.background.canvas.before.get_group('f')[0]
+        pipe = Pipe()
         # Move pipes
         for pipe in self.pipes:
-            pipe.x -= time_passed * 500
+            pipe.x -= time_passed * 250
 
         # Check
         num_pipes = 3
-        distance_between_pipes = Window.width / (num_pipes - 1) + 250
+        distance_between_pipes = Window.width / (num_pipes - 1) + 300
         pipe_xs = list(map(lambda pipe: pipe.x, self.pipes))
         right_most_x = max(pipe_xs)
         if right_most_x <= Window.width - distance_between_pipes:
             most_left_pipe = self.pipes[pipe_xs.index(min(pipe_xs))]
             most_left_pipe.x = Window.width
-            most_left_pipe.pipe_center = randint((274 + 200), (self.root.height - 200))
+            most_left_pipe.pipe_center = randint((self.floor_id.size[1] + (pipe.high_pipe * 2)), (self.root.height - (pipe.high_pipe * 2)))
 
 if __name__ == "__main__":
     MainApp().run()
