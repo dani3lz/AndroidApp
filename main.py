@@ -40,7 +40,7 @@ class Player(Image):
     velocity = NumericProperty(0)
     def on_touch_down(self, touch):
         self.source = "img/body/new/body_fly.png"
-        self.velocity = 1200
+        self.velocity = 900
         super().on_touch_down(touch)
 
     def on_touch_up(self, touch):
