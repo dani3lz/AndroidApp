@@ -121,7 +121,7 @@ class MainApp(App):
         self.frame = Clock.schedule_interval(self.next_frame, 1/60.)
         # Create the pipes
         num_pipes = 3
-        distance_between_pipes = Window.width / (num_pipes - 1) + 300
+        distance_between_pipes = Window.width / (num_pipes - 1) + 500
         for i in range(num_pipes):
             pipe = Pipe()
             pipe.pipe_center = randint(floor_id.size[1] + (pipe.high_pipe * 2), self.root.height - (pipe.high_pipe * 2))
@@ -141,7 +141,7 @@ class MainApp(App):
 
         # Check
         num_pipes = 3
-        distance_between_pipes = Window.width / (num_pipes - 1) + 300
+        distance_between_pipes = Window.width / (num_pipes - 1) + 500
         pipe_xs = list(map(lambda pipe: pipe.x, self.pipes))
         right_most_x = max(pipe_xs)
         if right_most_x <= Window.width - distance_between_pipes:
