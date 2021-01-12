@@ -6,8 +6,8 @@ from kivy.clock import Clock
 class Pipe(Widget):
 
     high_pipe = 68.
-    GAP_SIZE = NumericProperty(250)
-    CAP_SIZE = NumericProperty(high_pipe)
+    GAP_SIZE = NumericProperty(268)
+    CAP_SIZE = NumericProperty(68)
     pipe_center = NumericProperty(0)
     bottom_body_position = NumericProperty(0)
     bottom_cap_position = NumericProperty(0)
@@ -21,7 +21,7 @@ class Pipe(Widget):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.pipe_body_texture = Image(source="img/pipe/new/pipe.png").texture
+        self.pipe_body_texture = Image(source="img/pipe/pipe.png").texture
         self.pipe_body_texture.wrap = "repeat"
 
     def on_size(self, *args):

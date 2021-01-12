@@ -14,11 +14,11 @@ class Background(Widget):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.city_texture = Image(source="img/background/new/city.png").texture
+        self.city_texture = Image(source="img/background/city.png").texture
         self.city_texture.wrap = "repeat"
         self.city_texture.uvsize = (Window.width / self.city_texture.width, -1)
 
-        self.floor_texture = Image(source="img/background/new/floor.png").texture
+        self.floor_texture = Image(source="img/background/floor.png").texture
         self.floor_texture.wrap = "repeat"
         self.floor_texture.uvsize = (Window.width / self.floor_texture.width, -1)
 
@@ -40,12 +40,12 @@ class Player(Image):
     velocity = NumericProperty(0)
 
     def on_touch_down(self, touch):
-        self.source = "img/body/new/body_fly.png"
+        self.source = "img/body/body_fly.png"
         self.velocity = 900
         super().on_touch_down(touch)
 
     def on_touch_up(self, touch):
-        self.source = "img/body/new/body_normal.png"
+        self.source = "img/body/body_normal.png"
         super().on_touch_up(touch)
 
 
