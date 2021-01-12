@@ -40,7 +40,7 @@ class Player(Image):
     velocity = NumericProperty(0)
     def on_touch_down(self, touch):
         self.source = "img/body/new/body_fly.png"
-        self.velocity = 700
+        self.velocity = 1200
         super().on_touch_down(touch)
 
     def on_touch_up(self, touch):
@@ -50,7 +50,7 @@ class Player(Image):
 
 class MainApp(App):
     pipes = []
-    GRAVITY = 2000
+    GRAVITY = 2500
     was_colliding = False
 
     def check_score_init(self):
