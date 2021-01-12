@@ -23,8 +23,8 @@ class Background(Widget):
         self.floor_texture.uvsize = (Window.width / self.floor_texture.width, -1)
 
     def scroll_texture(self, time_passed):
-        self.floor_texture.uvpos = ((self.floor_texture.uvpos[0] + time_passed/2.1) % Window.width, self.floor_texture.uvpos[1])
-        self.city_texture.uvpos = ((self.city_texture.uvpos[0] + time_passed/1.3) % Window.width, self.city_texture.uvpos[1])
+        self.floor_texture.uvpos = ((self.floor_texture.uvpos[0] + time_passed) % Window.width, self.floor_texture.uvpos[1])
+        self.city_texture.uvpos = ((self.city_texture.uvpos[0] + time_passed) % Window.width, self.city_texture.uvpos[1])
 
         texture = self.property("city_texture")
         texture.dispatch(self)
@@ -124,7 +124,7 @@ class MainApp(App):
         distance_between_pipes = Window.width / (num_pipes - 1) + 500
         for i in range(num_pipes):
             pipe = Pipe()
-            pipe.pipe_center = randint(floor_id.size[1] + (pipe.high_pipe * 2), self.root.height - (pipe.high_pipe * 2))
+            pipe.pipe_center = randint(floor_id.size[1] + (pipe.high_pipe * 3), self.root.height - (pipe.high_pipe * 3))
             pipe.size_hint = (None,None)
             pipe.pos = (i*distance_between_pipes + self.root.width, floor_id.size[1])
             pipe.size = (218, self.root.height - floor_id.size[1])
@@ -147,7 +147,7 @@ class MainApp(App):
         if right_most_x <= Window.width - distance_between_pipes:
             most_left_pipe = self.pipes[pipe_xs.index(min(pipe_xs))]
             most_left_pipe.x = Window.width
-            most_left_pipe.pipe_center = randint((floor_id.size[1] + (pipe.high_pipe * 2)), (self.root.height - (pipe.high_pipe * 2)))
+            most_left_pipe.pipe_center = randint((floor_id.size[1] + (pipe.high_pipe * 3)), (self.root.height - (pipe.high_pipe * 3)))
 
 if __name__ == "__main__":
     MainApp().run()
