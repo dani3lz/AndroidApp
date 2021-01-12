@@ -147,7 +147,7 @@ class MainApp(App):
         if right_most_x <= Window.width - distance_between_pipes:
             most_left_pipe = self.pipes[pipe_xs.index(min(pipe_xs))]
             most_left_pipe.x = Window.width
-            most_left_pipe.pipe_center = randint((self.floor_id.size[1] + (pipe.high_pipe * 2)), (self.root.height - (pipe.high_pipe * 2)))
+            most_left_pipe.pipe_center = randint((floor_id.size[1] + (pipe.high_pipe * 2)), (self.root.height - (pipe.high_pipe * 2)))
 
 if __name__ == "__main__":
     MainApp().run()
