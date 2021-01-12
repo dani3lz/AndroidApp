@@ -95,8 +95,9 @@ class MainApp(App):
         self.was_colliding = is_colliding
 
     def game_over(self):
+        floor_id = self.root.ids.background.canvas.before.get_group('f')[0]
         self.check_score()
-        self.root.ids.player.pos = 100, (self.root.height - 274) / 2.0
+        self.root.ids.player.pos = 100, (self.root.height - floor_id.size[1]) / 2.0
         for pipe in self.pipes:
             self.root.remove_widget(pipe)
         self.frame.cancel()
@@ -136,7 +137,7 @@ class MainApp(App):
         pipe = Pipe()
         # Move pipes
         for pipe in self.pipes:
-            pipe.x -= time_passed * 250
+            pipe.x -= time_passed * 500
 
         # Check
         num_pipes = 3
