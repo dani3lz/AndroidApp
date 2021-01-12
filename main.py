@@ -1,6 +1,4 @@
 from kivy.app import App
-from kivy.config import Config
-Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 from kivy.uix.image import Image
 from kivy.clock import Clock
 from kivy.properties import ObjectProperty
@@ -40,6 +38,7 @@ from kivy.properties import NumericProperty
 
 class Player(Image):
     velocity = NumericProperty(0)
+
     def on_touch_down(self, touch):
         self.source = "img/body/new/body_fly.png"
         self.velocity = 900
@@ -54,6 +53,7 @@ class MainApp(App):
     pipes = []
     GRAVITY = 2500
     was_colliding = False
+    check = True
 
     def check_score_init(self):
         highscore = "0"
@@ -107,6 +107,7 @@ class MainApp(App):
         self.root.ids.start_button.opacity = 1
         self.root.ids.high_score.opacity = 1
         self.root.ids.high_score_text.opacity = 1
+        self.check = True
 
     def next_frame(self, time_passed):
         self.move_player(time_passed)
@@ -114,25 +115,27 @@ class MainApp(App):
         self.root.ids.background.scroll_texture(time_passed)
 
     def start_game(self):
-        self.root.ids.high_score.opacity = 0
-        self.root.ids.high_score_text.opacity = 0
-        self.root.ids.score.text = "0"
-        self.was_colliding = False
-        floor_id = self.root.ids.background.canvas.before.get_group('f')[0]
-        self.pipes = []
-        self.frame = Clock.schedule_interval(self.next_frame, 1/60.)
-        # Create the pipes
-        num_pipes = 3
-        distance_between_pipes = Window.width / (num_pipes - 1) + 500
-        for i in range(num_pipes):
-            pipe = Pipe()
-            pipe.pipe_center = randint(floor_id.size[1] + (pipe.high_pipe * 3), self.root.height - (pipe.high_pipe * 3))
-            pipe.size_hint = (None,None)
-            pipe.pos = (i*distance_between_pipes + self.root.width, floor_id.size[1])
-            pipe.size = (218, self.root.height - floor_id.size[1])
+        if self.check:
+            self.check = False
+            self.root.ids.high_score.opacity = 0
+            self.root.ids.high_score_text.opacity = 0
+            self.root.ids.score.text = "0"
+            self.was_colliding = False
+            floor_id = self.root.ids.background.canvas.before.get_group('f')[0]
+            self.pipes = []
+            self.frame = Clock.schedule_interval(self.next_frame, 1/60.)
+            # Create the pipes
+            num_pipes = 3
+            distance_between_pipes = Window.width / (num_pipes - 1) + 500
+            for i in range(num_pipes):
+                pipe = Pipe()
+                pipe.pipe_center = randint(floor_id.size[1] + (pipe.high_pipe * 3), self.root.height - (pipe.high_pipe * 3))
+                pipe.size_hint = (None,None)
+                pipe.pos = (i*distance_between_pipes + self.root.width, floor_id.size[1])
+                pipe.size = (218, self.root.height - floor_id.size[1])
 
-            self.pipes.append(pipe)
-            self.root.add_widget(pipe, -1)
+                self.pipes.append(pipe)
+                self.root.add_widget(pipe, -1)
 
     def move_pipes(self, time_passed):
         floor_id = self.root.ids.background.canvas.before.get_group('f')[0]
