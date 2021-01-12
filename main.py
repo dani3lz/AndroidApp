@@ -1,4 +1,6 @@
 from kivy.app import App
+from kivy.config import Config
+Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 from kivy.uix.image import Image
 from kivy.clock import Clock
 from kivy.properties import ObjectProperty
@@ -23,8 +25,8 @@ class Background(Widget):
         self.floor_texture.uvsize = (Window.width / self.floor_texture.width, -1)
 
     def scroll_texture(self, time_passed):
-        self.floor_texture.uvpos = ((self.floor_texture.uvpos[0] + time_passed/2.2) % Window.width, self.floor_texture.uvpos[1])
-        self.city_texture.uvpos = ((self.city_texture.uvpos[0] + time_passed) % Window.width, self.city_texture.uvpos[1])
+        self.floor_texture.uvpos = ((self.floor_texture.uvpos[0] + time_passed/1.5) % Window.width, self.floor_texture.uvpos[1])
+        self.city_texture.uvpos = ((self.city_texture.uvpos[0] + time_passed/1.2) % Window.width, self.city_texture.uvpos[1])
 
         texture = self.property("city_texture")
         texture.dispatch(self)
