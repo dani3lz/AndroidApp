@@ -1,1 +1,1 @@
-Highscore = 4
+Highscore = 0
