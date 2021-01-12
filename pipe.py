@@ -6,7 +6,7 @@ from kivy.clock import Clock
 class Pipe(Widget):
 
     high_pipe = 68.
-    GAP_SIZE = NumericProperty(280)
+    GAP_SIZE = NumericProperty(250)
     CAP_SIZE = NumericProperty(high_pipe)
     pipe_center = NumericProperty(0)
     bottom_body_position = NumericProperty(0)
