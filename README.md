@@ -1,2 +1,0 @@
-# AndroidApp
-My Android App
